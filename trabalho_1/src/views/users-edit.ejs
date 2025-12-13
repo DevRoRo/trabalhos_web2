@@ -23,6 +23,7 @@
           <div class="md:col-span-2 bg-white border rounded-2xl p-5 shadow-sm">
             <h2 class="text-lg font-semibold mb-4">Create / Edit User</h2>
             <form class="grid grid-cols-1 sm:grid-cols-2 gap-4" method="post" action="./edit">
+              <input type="hidden" name="id" value="<%= dados.id %>">
               <div>
                 <label class="block text-sm text-gray-600 mb-1">Full Name</label>
                 <input name="name" type="text" class="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 focus:outline-none focus:ring-4 focus:ring-gray-200" placeholder="<%= dados.name%>" />

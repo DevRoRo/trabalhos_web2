@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { mostraListaUsuarios, mostraPaginaCriacaoUsuario, criaUsuario, deletaUsuario, mostraPaginaEdicao } from "../controller/users-controller.js";
+import { mostraListaUsuarios, mostraPaginaCriacaoUsuario, criaUsuario, deletaUsuario, mostraPaginaEdicao, editaUsuario } from "../controller/users-controller.js";
 
 const usersRouter = Router();
 
@@ -9,7 +9,7 @@ usersRouter.get('/lista',  mostraListaUsuarios);
 usersRouter.get('/criar',  mostraPaginaCriacaoUsuario);
 usersRouter.post('/criar', criaUsuario);
 usersRouter.get('/edit',   mostraPaginaEdicao);
-usersRouter.post('/edit',  respostaPadrao);
+usersRouter.post('/edit',  editaUsuario);
 usersRouter.get('/delete', deletaUsuario);
 
 export  { usersRouter }

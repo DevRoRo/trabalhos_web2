@@ -1,11 +1,11 @@
-import { insert, deleteOne } from "../config/db.js";
+import { insert, deleteOne, selectOne, select } from "../config/db.js";
 
 export function insereNoBanco(data) {
 
-    var data = new Date();
-    var dia = data.getDate()
-    var mes = data.getMonth()+1
-    var ano = data.getFullYear()
+    var date = new Date();
+    var dia = date.getDate()
+    var mes = date.getMonth()+1
+    var ano = date.getFullYear()
 
     var createdAt = dia + "/" + mes + "/" + ano
 
@@ -21,3 +21,25 @@ export function deletaDoBanco(id) {
         throw err
     }
 }
+
+export function editaNoBanco(id, dadosParaEditar) {
+    const user = selectOne(Number(id))
+
+    user.name = dadosParaEditar.name
+    user.username = dadosParaEditar.name.substring(0, 4)
+    user.email = dadosParaEditar.email
+    user.role = dadosParaEditar.role
+    user.status = dadosParaEditar.status
+    user.password = dadosParaEditar.password
+}
+
+export function parcelaDeUsuarios(page) {
+    var dados = select();
+    const qtdDados = dados.length
+    var quantosUserMostrar = page * 10
+    dados = dados.slice(quantosUserMostrar-10, quantosUserMostrar)
+    return {
+        dados: dados,
+        qtdDados: qtdDados
+    }
+}   

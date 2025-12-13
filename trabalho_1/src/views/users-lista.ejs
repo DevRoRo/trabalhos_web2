@@ -121,13 +121,10 @@
 
         <!-- Pagination (static) -->
         <div class="flex items-center justify-between px-4 py-3 border-t bg-gray-50">
-          <p class="text-sm text-gray-600">Showing <span class="font-medium">1–10</span> of <span class="font-medium">42</span> users</p>
+          <p class="text-sm text-gray-600">Showing <span class="font-medium">1–10</span> of <span class="font-medium"><%= qtdDados %></span> users</p>
           <nav class="inline-flex items-center gap-1">
-            <a href="#" class="rounded-xl border px-3 py-1.5 text-sm hover:bg-gray-100">Previous</a>
-            <a href="#" class="rounded-xl bg-black text-white px-3 py-1.5 text-sm">1</a>
-            <a href="#" class="rounded-xl border px-3 py-1.5 text-sm hover:bg-gray-100">2</a>
-            <a href="#" class="rounded-xl border px-3 py-1.5 text-sm hover:bg-gray-100">3</a>
-            <a href="#" class="rounded-xl border px-3 py-1.5 text-sm hover:bg-gray-100">Next</a>
+            <a href="./lista?page=<%=(page - 1 > 0) ? page - 1 : 1%>" class="rounded-xl border px-3 py-1.5 text-sm hover:bg-gray-100">Previous</a>
+            <a href="./lista?page=<%=(page + 1 <= qtsPaginas) ? page + 1 : qtsPaginas%>" class="rounded-xl border px-3 py-1.5 text-sm hover:bg-gray-100">Next</a>
           </nav>
         </div>
       </section>

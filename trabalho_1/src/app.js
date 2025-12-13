@@ -1,9 +1,11 @@
 import express from 'express';
 import { usersRouter } from './routes/users-routes.js';
+import logger from './Middleware/logger.js';
 
 const app = express();
 
 app.use(express.urlencoded({ extended: true}));
+app.use(logger)
 
 app.set("view engine", "ejs");
 app.set("views", "./src/views");

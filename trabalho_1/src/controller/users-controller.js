@@ -1,9 +1,15 @@
 import { select, selectOne } from "../config/db.js"
-import { deletaDoBanco, insereNoBanco } from "../service/users-service.js";
+import { deletaDoBanco, editaNoBanco, insereNoBanco, parcelaDeUsuarios } from "../service/users-service.js";
 
 export function mostraListaUsuarios(req, res) {
-    const dados = select();
-    res.render('users-lista', { dados })
+    var page = 1
+    if(req.query.page) {
+        page = Number(req.query.page)
+    }
+
+    const { dados, qtdDados } = parcelaDeUsuarios(page)
+    const qtsPaginas = Math.ceil(qtdDados / 10)
+    res.render('users-lista', { dados, qtsPaginas, page, qtdDados})
 }
 
 export function mostraPaginaCriacaoUsuario(req, res) {
@@ -17,7 +23,6 @@ export function mostraPaginaEdicao(req, res) {
 
 export function criaUsuario(req, res) {
     const data = req.body
-    console.log(data)
     insereNoBanco(data)
     res.redirect("/")
 }
@@ -29,8 +34,24 @@ export function deletaUsuario(req, res) {
     } catch (err) {
         console.log(err)
         res.status(500).send(`
-            <h1>Erro: ${err.message}</h1>
-            <p>Houve um erro ao tentar deletar o usuário.</p>
+            <h1>Houve um erro ao tentar deletar o usuário.</h1>
+            <p>Erro: ${err.message}</p>
+            <a href="/">Voltar ao início</a>
+        `);
+    }
+}
+
+export function editaUsuario(req, res) {
+    const data = req.body
+    const id = data.id
+
+    try {
+        editaNoBanco(id, data)
+        res.redirect("/")
+    } catch (err) {
+        res.status(500).send(`
+            <h1>Houve um erro ao tentar editar o usuário.</h1>
+            <p>Erro: ${err.message}</p>
             <a href="/">Voltar ao início</a>
         `);
     }
