@@ -4,12 +4,14 @@ import { usersRouter } from './routes/users-routes.js';
 import { homeRouter } from './routes/home-routes.js';
 import session from 'express-session'
 import  { PrismaClient } from '@prisma/client';
+import logger from './Middleware/logger.js';
 
 export const prisma = new PrismaClient()
 const app = express();
 const PORT = 3000;
 
 app.use(express.urlencoded({ extended: false }));
+app.use(logger)
 
 app.set("view engine", "ejs");
 app.set("views", "src/views");
@@ -33,7 +35,8 @@ app.use((req, res, next) => {
     const allowedPaths = [
         '/users/userAuth',
         '/users/userLogin',
-        '/users/teste'
+        '/users/teste',
+        '/users/userData'
     ];
 
     if (req.session.auth) {

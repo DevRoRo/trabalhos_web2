@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Gallery | Pinterest Style</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom scrollbar to keep the clean look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-gray-100">
+    <div class="container mx-auto p-6 md:p-12">
+        <div class="w-full max-w-6xl mx-auto bg-white rounded-2xl shadow-lg p-6 md:p-8 mb-12">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                <h1 class="text-3xl font-bold text-gray-800">
+                    See images from around the world!
+                </h1>
+
+                <div class="flex space-x-4">
+                    <a href="../home/page"
+                        class="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition shadow-sm font-medium">
+                        Your images
+                    </a>
+                    <a href="../users/logout"
+                        class="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition shadow-sm font-medium">
+                        Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto">
+
+            <div class="columns-1 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-6 space-y-6">
+                
+                <% images.forEach(image => { %>
+                    <div class="break-inside-avoid shadow-lg rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 bg-white group">
+                        
+                        <div class="relative">
+                            <img src="<%= image.filepath %>" 
+                                 class="w-full h-auto block" 
+                                 alt="Gallery item" />
+                            
+                            <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+                        </div>
+
+                        <div class="p-4">
+                            <p class="text-sm font-medium text-gray-600 truncate">
+                                <%= image.titulo || 'Untitled' %>
+                            </p>
+                        </div>
+                        <form action="./feed" method="POST" class="inline">
+                            <input type="hidden" name="imageId" value="<%= image.id %>">
+    
+                            <button type="submit" 
+                                    class="p-2 rounded-full transition-all duration-200 hover:bg-red-50 hover:text-red-500 text-gray-400 group focus:outline-none">
+                                
+                                    <svg width="24" height="24" 
+                                        viewBox="0 0 24 24" 
+                                        fill="none" 
+                                        stroke="currentColor" 
+                                        stroke-width="2" 
+                                        stroke-linecap="round" 
+                                        stroke-linejoin="round"
+                                        class="group-active:fill-red-500 group-active:scale-125 transition-transform">
+                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.1-8.1 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                    </svg>
+                                    <div><%= image.Like %></div>
+                            </button>
+                        </form>
+                    </div>
+                <% }) %>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

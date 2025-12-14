@@ -18,6 +18,7 @@ model User {
 model Image {
   id       Int    @id @default(autoincrement())
   filepath String
+  titulo   String     @default("titulo")
 
   userId Int
   user   User   @relation(fields: [userId], references: [id])

@@ -13,12 +13,17 @@ export async function createImage (filepath, user) {
     }
 }
 
-export async function getUserImagesFilePaths(userId) {
+export async function getUserImagesFilePaths(id) {
     try {
         const img = await prisma.image.findMany({
             where: {
-                userId: userId
+                userId: id
             },
+            include: {
+                _count: {
+                    select: { Like: true}
+                }
+            }
         });
 
         return img
@@ -43,4 +48,18 @@ export async function getAImage(userId) {
     }
 }
 
-/* Next steps: rendering the uint8array bytes saved in the image column of the image table in a HTML page */
+export async function getAllImages() {
+    try {
+        const img = await prisma.image.findMany({
+            include: {
+                _count: {
+                    select: { Like: true}
+                }
+            }
+        })
+
+        return img
+    } catch (error) {
+        throw (error)
+    }
+}

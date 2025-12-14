@@ -7,7 +7,7 @@ import { createImage, getAImage, getUserImagesFilePaths } from '../Persistence/i
 export async function teste(req, res) {
     const username = 'roro'
     const userId = await findUser(username)
-    console.log(await getUserImagesFilePaths(userId.id))
+    console.log(await getUserImages(username))
 }
 
 export function showPublishInterface(req, res) {
@@ -15,8 +15,9 @@ export function showPublishInterface(req, res) {
 }
 
 export function publishImage(req, res) {
+    const uploadDir = `/uploads/${req.session.username}/`
     const form = formidable({
-        uploadDir: `public/uploads/${req.session.username}/`,
+        uploadDir: 'public'+uploadDir,
         createDirsFromUploads: true,
         keepExtensions: true
     });
@@ -26,7 +27,7 @@ export function publishImage(req, res) {
             next(err);
             return;
         }
-        const filepath = files.imagem[0].filepath.slice(61) //Gambiarra pra pegar o pathing relativo da imagem e salvar no banco.
+        const filepath = uploadDir+files.imagem[0].newFilename
         const user = (await findUser(req.session.username)).id
         createImage(filepath, user)
         res.redirect("/")
@@ -34,8 +35,10 @@ export function publishImage(req, res) {
 }
 
 export async function getUserImages(username) {
-    const userId = await findUser(username).id
-    return await getUserImagesFilePaths(userId)
+    const userId = (await findUser(username)).id
+    const images = await getUserImagesFilePaths(userId)
+
+    return images
 }
 
 export async function getUserImagesFromUploadDir(req) {
@@ -95,8 +98,6 @@ export const register = async (req, res) => {
     }
 };
 export function showReqData(req, res) {
-    req.session.auth = true
-    req.session.abcd = 1234
     return res.json({
         rota: req.url,
         queryparams: req.query,

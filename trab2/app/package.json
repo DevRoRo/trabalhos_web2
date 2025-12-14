@@ -14,11 +14,13 @@
   "license": "ISC",
   "devDependencies": {
     "@prisma/client": "^6.18.0",
-    "prisma": "^6.18.0"
+    "prisma": "^6.19.1"
   },
   "dependencies": {
     "ejs": "^3.1.10",
-    "express": "^5.1.0",
-    "formidable": "^3.5.4"
+    "express": "^5.2.1",
+    "express-session": "^1.18.2",
+    "formidable": "^3.5.4",
+    "sqlite3": "^5.1.7"
   }
 }
