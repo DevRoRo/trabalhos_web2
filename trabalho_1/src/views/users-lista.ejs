@@ -145,44 +145,31 @@
 
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-      // 1. Get all the filter elements
-      const filterSelectors = document.querySelectorAll('select[name]'); 
-    
-      // The base URL remains the same
-      const baseUrl = window.location.pathname; 
+        const filterSelectors = document.querySelectorAll('select[name]'); 
+        const baseUrl = window.location.pathname; 
 
-      // Function to read all filter values and build the URL
-      function updateUrlWithFilters() {
-        // Start with the current URL's parameters, if any (e.g., /products?search=item)
-        const params = new URLSearchParams(window.location.search); 
-        
-        // 2. Iterate over all filter elements
-        filterSelectors.forEach(selector => {
-            const selectedValue = selector.value;
-            const paramName = selector.name; // e.g., 'category', 'price', 'color'
+        function updateUrlWithFilters() {
 
-            // Check if the user has selected a specific filter value 
-            // ('all' or an empty value usually means no filter for that field)
-            if (selectedValue && selectedValue !== 'all') {
-                // 3. Add or update the parameter in the URLSearchParams object
-                params.set(paramName, selectedValue);
-            } else {
-                // 4. If 'all' or empty, remove the parameter for a clean URL
-                params.delete(paramName);
-            }
-        });
-        
-            // 5. Construct the final URL string
-            // Example output: /products?category=books&price=high&color=blue
-            const newUrl = `${baseUrl}?${params.toString()}`;
-            
-            // 6. Trigger the GET Request (Redirect)
-            window.location.href = newUrl;
+          const params = new URLSearchParams(window.location.search); 
+          
+          filterSelectors.forEach(selector => {
+              const selectedValue = selector.value;
+              const paramName = selector.name;
+
+              if (selectedValue && selectedValue !== 'all') {
+                  params.set(paramName, selectedValue);
+              } else {
+                  params.delete(paramName);
+              }
+          });
+          
+          const newUrl = `${baseUrl}?${params.toString()}`;  
+          window.location.href = newUrl;
+
         }
 
-        // 7. Attach the function to the 'change' event of all filter selectors
         filterSelectors.forEach(selector => {
-            selector.addEventListener('change', updateUrlWithFilters);
+          selector.addEventListener('change', updateUrlWithFilters);
         });
       });
     </script>
