@@ -1,15 +1,20 @@
 import { select, selectOne } from "../config/db.js"
-import { deletaDoBanco, editaNoBanco, insereNoBanco, parcelaDeUsuarios } from "../service/users-service.js";
+import { deletaDoBanco, editaNoBanco, exportarCSV, insereNoBanco, parcelaDeUsuarios, ordenarDados } from "../service/users-service.js";
 
 export function mostraListaUsuarios(req, res) {
     var page = 1
+
     if(req.query.page) {
         page = Number(req.query.page)
     }
 
     const { dados, qtdDados } = parcelaDeUsuarios(page)
+
+    const filtros = req.query
+    const dadosOrdenados = ordenarDados(dados, filtros)
+
     const qtsPaginas = Math.ceil(qtdDados / 10)
-    res.render('users-lista', { dados, qtsPaginas, page, qtdDados})
+    res.render('users-lista', { dadosOrdenados, qtsPaginas, page, qtdDados})
 }
 
 export function mostraPaginaCriacaoUsuario(req, res) {
@@ -55,4 +60,12 @@ export function editaUsuario(req, res) {
             <a href="/">Voltar ao início</a>
         `);
     }
+}
+
+export function exportar(req, res) {
+    exportarCSV()
+    res.send(`
+        <h1>ARQUIVO .CSV GERADO NA ROOT DO SERVER</h1>
+        <a href="/">Voltar ao início</a>
+    `)
 }

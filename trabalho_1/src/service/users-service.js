@@ -1,4 +1,5 @@
 import { insert, deleteOne, selectOne, select } from "../config/db.js";
+import fs from "fs"
 
 export function insereNoBanco(data) {
 
@@ -26,7 +27,7 @@ export function editaNoBanco(id, dadosParaEditar) {
     const user = selectOne(Number(id))
 
     user.name = dadosParaEditar.name
-    user.username = dadosParaEditar.name.substring(0, 4)
+    user.username = "@"+dadosParaEditar.name.substring(0, 4)
     user.email = dadosParaEditar.email
     user.role = dadosParaEditar.role
     user.status = dadosParaEditar.status
@@ -42,4 +43,35 @@ export function parcelaDeUsuarios(page) {
         dados: dados,
         qtdDados: qtdDados
     }
-}   
+}
+
+export function exportarCSV() {
+    const dados = select()
+    let string = ''
+    for (var dado of dados) {
+        let keys = Object.keys(dado)
+        
+        keys.forEach(key => {
+            string += dado[key]
+            string += ', '
+        })
+        string += '\n'
+    }
+
+    fs.writeFileSync('exportCSV.csv', string)
+}
+
+export function ordenarDados(dados, filtros) {
+    
+    const roles = filtros.roles ? filtros.roles : 'any'
+    const status = filtros.status ? filtros.status : 'all'
+    const filters = filtros.sort ? filtros.sort : 'az'
+
+    if (filters === 'az' ) {
+        dados.sort((a, b) => a.name.localeCompare(b.name))
+    } else if (filters === 'za') {
+        dados.sort((a, b) => b.name.localeCompare(a.name))
+    }
+
+    return dados
+}

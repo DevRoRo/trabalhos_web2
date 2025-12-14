@@ -18,9 +18,11 @@
               Add User
             </button>
           </a>
-          <button class="inline-flex items-center gap-2 rounded-xl bg-black text-white px-3 py-2 text-sm font-medium hover:bg-gray-800">
-            Export
-          </button>
+          <a href="./export">
+            <button class="inline-flex items-center gap-2 rounded-xl bg-black text-white px-3 py-2 text-sm font-medium hover:bg-gray-800">
+              Export
+            </button>
+          </a>
         </div>
       </div>
     </header>
@@ -34,25 +36,30 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 text-gray-500"><path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 1 0 13.5 6.75 6.75 0 0 1 0-13.5Zm0 1.5a5.25 5.25 0 1 0 0 10.5 5.25 5.25 0 0 0 0-10.5Zm8.03 13.28a.75.75 0 1 1-1.06 1.06l-3.25-3.25a.75.75 0 0 1 1.06-1.06l3.25 3.25Z" clip-rule="evenodd"/></svg>
           </div>
         </div>
-        <select class="rounded-2xl border border-gray-300 bg-white px-3 py-2.5 text-sm focus:outline-none focus:ring-4 focus:ring-gray-200">
-          <option value="">All Roles</option>
-          <option>Admin</option>
-          <option>Manager</option>
-          <option>Editor</option>
-          <option>Viewer</option>
+        <select name="roles" id="role_selector" class="rounded-2xl border border-gray-300 bg-white px-3 py-2.5 text-sm focus:outline-none focus:ring-4 focus:ring-gray-200">
+          <option value="all">All Roles</option>
+          <option value="admin">Admin</option>
+          <option value="manager">Manager</option>
+          <option value="editor">Editor</option>
+          <option value="viewer">Viewer</option>
         </select>
-        <select class="rounded-2xl border border-gray-300 bg-white px-3 py-2.5 text-sm focus:outline-none focus:ring-4 focus:ring-gray-200">
-          <option value="">Any Status</option>
-          <option>Active</option>
-          <option>Invited</option>
-          <option>Suspended</option>
+        <select name="status" id="status_selector" class="rounded-2xl border border-gray-300 bg-white px-3 py-2.5 text-sm focus:outline-none focus:ring-4 focus:ring-gray-200">
+          <option value="any">Any Status</option>
+          <option value="active">Active</option>
+          <option value="invited">Invited</option>
+          <option value="suspended">Suspended</option>
         </select>
-        <select class="rounded-2xl border border-gray-300 bg-white px-3 py-2.5 text-sm focus:outline-none focus:ring-4 focus:ring-gray-200">
-          <option>Sort: Newest</option>
-          <option>Sort: Oldest</option>
-          <option>Sort: A → Z</option>
-          <option>Sort: Z → A</option>
+        <select name="sort" id="general_filters" class="rounded-2xl border border-gray-300 bg-white px-3 py-2.5 text-sm focus:outline-none focus:ring-4 focus:ring-gray-200">
+          <option value="newest">Sort: Newest</option>
+          <option value="oldest">Sort: Oldest</option>
+          <option value="az">Sort: A → Z</option>
+          <option value="za">Sort: Z → A</option>
         </select>
+        <a href="/">
+            <button class="inline-flex items-center gap-2 rounded-xl bg-gray-100 px-3 py-2 text-sm font-medium hover:bg-gray-200">
+              Reset Filters
+            </button>
+          </a>
       </section>
 
       <!-- Users Table -->
@@ -71,7 +78,7 @@
             </thead>
             <tbody class="divide-y divide-gray-100">
               
-              <% dados.forEach(user => { %>
+              <% dadosOrdenados.forEach(user => { %>
 
                 <tr class="hover:bg-gray-50">
                   <td class="px-4 py-3">
@@ -135,5 +142,49 @@
     <footer class="max-w-6xl mx-auto px-4 py-10 text-center text-xs text-gray-500">
       Built with Tailwind CSS – no JavaScript included.
     </footer>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+      // 1. Get all the filter elements
+      const filterSelectors = document.querySelectorAll('select[name]'); 
+    
+      // The base URL remains the same
+      const baseUrl = window.location.pathname; 
+
+      // Function to read all filter values and build the URL
+      function updateUrlWithFilters() {
+        // Start with the current URL's parameters, if any (e.g., /products?search=item)
+        const params = new URLSearchParams(window.location.search); 
+        
+        // 2. Iterate over all filter elements
+        filterSelectors.forEach(selector => {
+            const selectedValue = selector.value;
+            const paramName = selector.name; // e.g., 'category', 'price', 'color'
+
+            // Check if the user has selected a specific filter value 
+            // ('all' or an empty value usually means no filter for that field)
+            if (selectedValue && selectedValue !== 'all') {
+                // 3. Add or update the parameter in the URLSearchParams object
+                params.set(paramName, selectedValue);
+            } else {
+                // 4. If 'all' or empty, remove the parameter for a clean URL
+                params.delete(paramName);
+            }
+        });
+        
+            // 5. Construct the final URL string
+            // Example output: /products?category=books&price=high&color=blue
+            const newUrl = `${baseUrl}?${params.toString()}`;
+            
+            // 6. Trigger the GET Request (Redirect)
+            window.location.href = newUrl;
+        }
+
+        // 7. Attach the function to the 'change' event of all filter selectors
+        filterSelectors.forEach(selector => {
+            selector.addEventListener('change', updateUrlWithFilters);
+        });
+      });
+    </script>
   </body>
 </html>
