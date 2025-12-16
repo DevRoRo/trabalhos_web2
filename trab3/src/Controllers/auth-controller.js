@@ -16,10 +16,10 @@ export class AuthController {
 
     async login(req, res) {
         // validacao de payload
-        const { email, senha } = req.body;
+        const input = req.body;
         
         // chamada ao service
-        const output = await this.service.login(email, senha);
+        const output = await this.service.login(input);
 
         // a resposta http filtrando os possiveis
         if (output) {

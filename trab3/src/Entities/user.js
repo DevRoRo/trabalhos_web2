@@ -19,14 +19,8 @@ export class User {
 
         this.firstname = firstname;
         this.surname = surname;
-        
-        // falta validar
         this.cpf = cpf;
         this.email = email;
         this.password = password;
-    }
-
-    checkPassword(password) {
-        return this.password == password;
     }
 }

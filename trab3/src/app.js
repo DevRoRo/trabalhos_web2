@@ -5,6 +5,8 @@ console.log({
     env: process.env
 });
 
+import userRouter from './routers/users-routes.js'
+
 import express from 'express';
 
 const app = express();
@@ -13,8 +15,9 @@ app.use(express.urlencoded({ extended: false}));
 
 app.use(express.json());
 
-import userRouter from './routers/users-routes.js'
 app.use('/users', userRouter);
+
+app.use('/polls' )
 
 app.get('/', (req, res) => {
     return res.status(200).send("WEBII");

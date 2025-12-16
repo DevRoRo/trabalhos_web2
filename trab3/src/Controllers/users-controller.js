@@ -25,7 +25,6 @@ export class UserController {
         res.json(output);
     }
 
-
     async getProfile(req, res) {
         const token = req.headers.authorization;
         try {

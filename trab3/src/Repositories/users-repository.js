@@ -15,7 +15,7 @@ export class UsersRepository {
                 surname: user.surname,
                 cpf: user.cpf,
                 email: user.email,
-                password: user.password
+                password: user.password.getHash()
             }
         });
     }
