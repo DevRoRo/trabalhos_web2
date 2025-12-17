@@ -7,6 +7,8 @@ console.log({
 
 import userRouter from './routers/users-routes.js'
 
+import pollRouter from './routers/polls-routes.js'
+
 import express from 'express';
 
 const app = express();
@@ -17,7 +19,7 @@ app.use(express.json());
 
 app.use('/users', userRouter);
 
-app.use('/polls' )
+app.use('/polls', pollRouter);
 
 app.get('/', (req, res) => {
     return res.status(200).send("WEBII");

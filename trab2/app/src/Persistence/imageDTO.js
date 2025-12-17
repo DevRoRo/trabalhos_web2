@@ -42,5 +42,3 @@ export async function getAImage(userId) {
         throw (error)
     }
 }
-
-/* Next steps: rendering the uint8array bytes saved in the image column of the image table in a HTML page */
