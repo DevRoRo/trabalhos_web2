@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:../dev.db"
+}
+
+model User { 
+  id        String   @id @default(uuid())
+  firstname String
+  surname   String
+  email     String   @unique
+  password  String
+  cpf       String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  polls Poll[]
+  votes Vote[]
+}
+
+model Poll {
+  id              String      @id @default(uuid())
+  title           String
+  visibility      String      @default("PUBLIC")
+  status          String      @default("OPEN")
+  startAt         DateTime    @default(now())
+  endAt           DateTime    
+  expectedVotes   Int         
+  categories      String      
+
+  creatorId       String
+  creator         User        @relation(fields: [creatorId], references: [id])
+
+  options         Option[]
+
+  votes           Vote[]
+}
+
+model Option {
+  id            String      @id @default(uuid())
+  description   String      
+
+  pollId       String
+  poll          Poll        @relation(fields: [pollId], references: [id])
+
+  votes         Vote[]      
+
+}
+
+model Vote {
+  userId       String
+  pollId       String
+  optionId     String
+
+  @@id([userId, pollId])
+
+  user        User        @relation(fields: [userId], references: [id])
+
+  poll        Poll        @relation(fields: [pollId], references: [id])
+
+  option      Option      @relation(fields: [optionId], references: [id])
+}

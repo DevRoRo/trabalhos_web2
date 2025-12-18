@@ -2,11 +2,19 @@
 2, Theodoro Araujo Fritzen, @theo, ADMIN, DELETED, vinicius.machado@riogrande.ifrs.edu.br, 12345, 2025-08-26, 
 3, David Maiato, @david, STUDENT, INACTIVE, david.maioto@aluno.riogrande.ifrs.edu.br, 123456, 2025-08-26, 
 4, Maria Silva, @msilva, TEACHER, ACTIVE, maria.silva@riogrande.ifrs.edu.br, password4, 2025-08-27, 
+<<<<<<< HEAD
 6, Ana Souza, @asouza, STUDENT, INACTIVE, ana.souza@aluno.riogrande.ifrs.edu.br, password6, 2025-08-28, 
 7, Pedro Santos, @psantos, TEACHER, ACTIVE, pedro.santos@riogrande.ifrs.edu.br, password7, 2025-08-28, 
 8, Carla Oliveira, @coliveira, ADMIN, ACTIVE, carla.oliveira@riogrande.ifrs.edu.br, password8, 2025-08-29, 
 9, Ricardo Gomes, @rgomes, STUDENT, ACTIVE, ricardo.gomes@aluno.riogrande.ifrs.edu.br, password9, 2025-08-29, 
 12, Patricia Rocha, @procha, TEACHER, ACTIVE, patricia.rocha@riogrande.ifrs.edu.br, password12, 2025-08-31, 
+=======
+5, João Pereira, @jpereira, STUDENT, ACTIVE, joao.pereira@aluno.riogrande.ifrs.edu.br, password5, 2025-08-27, 
+6, Ana Souza Maria, @Ana , Viewer, ACTIVE, ana.souza@aluno.riogrande.ifrs.edu.br, 46753, 2025-08-28, 
+7, Pedro Santos, @psantos, TEACHER, ACTIVE, pedro.santos@riogrande.ifrs.edu.br, password7, 2025-08-28, 
+8, Carla Oliveira, @coliveira, ADMIN, ACTIVE, carla.oliveira@riogrande.ifrs.edu.br, password8, 2025-08-29, 
+9, Ricardo Gomes, @rgomes, STUDENT, ACTIVE, ricardo.gomes@aluno.riogrande.ifrs.edu.br, password9, 2025-08-29, 
+>>>>>>> trab3
 13, Guilherme Alves, @galves, STUDENT, ACTIVE, guilherme.alves@aluno.riogrande.ifrs.edu.br, password13, 2025-08-31, 
 14, Maria Silva, @msilva, TEACHER, ACTIVE, maria.silva@riogrande.ifrs.edu.br, password4, 2025-08-27, 
 15, João Pereira, @jpereira, STUDENT, ACTIVE, joao.pereira@aluno.riogrande.ifrs.edu.br, password5, 2025-08-27, 
@@ -15,4 +23,3 @@
 18, Carla Oliveira, @coliveira, ADMIN, ACTIVE, carla.oliveira@riogrande.ifrs.edu.br, password8, 2025-08-29, 
 19, Ricardo Gomes, @rgomes, STUDENT, ACTIVE, ricardo.gomes@aluno.riogrande.ifrs.edu.br, password9, 2025-08-29, 
 22, Patricia Rocha, @procha, TEACHER, ACTIVE, patricia.rocha@riogrande.ifrs.edu.br, password12, 2025-08-31, 
-23, Guilherme Alves, @galves, STUDENT, ACTIVE, guilherme.alves@aluno.riogrande.ifrs.edu.br, password13, 2025-08-31, 

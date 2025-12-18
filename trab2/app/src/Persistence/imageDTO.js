@@ -46,6 +46,7 @@ export async function getAImage(userId) {
     } catch (error) {
         throw (error)
     }
+<<<<<<< HEAD
 }
 
 export async function getAllImages() {
@@ -62,4 +63,6 @@ export async function getAllImages() {
     } catch (error) {
         throw (error)
     }
+=======
+>>>>>>> trab3
 }
